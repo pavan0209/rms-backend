@@ -20,7 +20,10 @@ public class OrderController {
 
     @PostMapping("/create-order")
     public ResponseEntity<ApiResponse<Void>> placeOrder(@Valid @RequestBody OrderRequest request) {
-        orderService.placeOrder(request);
-        return ResponseEntity.ok(new ApiResponse<>(true, "Order created successfully.", null));
+        boolean isOrderPlaced = orderService.placeOrder(request);
+        String message = isOrderPlaced
+                ? "Order created successfully."
+                : "Product with SkuCode " + request.skuCode() + " is not in stock.";
+        return ResponseEntity.ok(new ApiResponse<>(isOrderPlaced, message, null));
     }
 }
