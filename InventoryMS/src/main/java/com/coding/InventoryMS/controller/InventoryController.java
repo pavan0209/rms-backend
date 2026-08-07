@@ -17,6 +17,6 @@ public class InventoryController {
     public ResponseEntity<ApiResponse<Boolean>> isInStock(@RequestParam String skuCode, @RequestParam Integer quantity) {
         boolean response = inventoryService.isInStock(skuCode, quantity);
         String message = response ? "Available in inventory" : "Out of stock";
-        return ResponseEntity.ok(new ApiResponse<>(true, message, response));
+        return ResponseEntity.ok(new ApiResponse<>(response, message, null));
     }
 }
